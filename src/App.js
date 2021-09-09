@@ -13,7 +13,7 @@ let data = new Date();
 let dia = String(data.getDate()).padStart(2, '0');
 let mes = String(data.getMonth() + 1).padStart(2, '0');
 let ano = data.getFullYear();
-let dataAtual = dia + '/' + mes + '/' + ano;
+let dataAtual = ano + '-' + mes + '-' + dia;
 function App() {
   const [tarefas, addTarefas] = useState([
     {
@@ -33,8 +33,9 @@ function App() {
   const adicionarTarefa = (tituloTarefa)=>{
       const novaTarefa = [...tarefas, {
         id: Math.random(1),
-        tarefa : tituloTarefa,
-        completa: false
+        title : tituloTarefa,
+        completa: false,
+        date: dataAtual
       }]
       addTarefas(novaTarefa)
   }

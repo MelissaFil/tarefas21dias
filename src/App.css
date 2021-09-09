@@ -7,6 +7,17 @@
   pointer-events: none;
 }
 
+
+#calendar {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.fc .fc-daygrid-day.fc-day-today {
+  background-color: rgba(17, 83, 11, 0.486) !important;
+}
+.fc-h-event{
+  background-color: none!important;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

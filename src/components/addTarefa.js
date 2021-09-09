@@ -13,7 +13,7 @@ const AddTarefa = ({adicionarTarefa})=>{
         setarEntradaDado('')
     }
     return (
-        <div className="d-flex flex-row mb-2">
+        <div className="d-flex flex-row mb-2 px-0">
             <input type="text" placeholder="Adcionar tarefa" onChange={handleEntradaDado} value={titulo} className="form-group " />
 
             <Button onClick={setarTarefa}>Nova tarefa</Button>

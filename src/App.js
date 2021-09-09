@@ -1,19 +1,32 @@
 import './App.css';
 import React, { useState } from 'react';
-import TarefasMap from './components/tarefasMap';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import FullCalendar from '@fullcalendar/react' // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+
+import Header from './components/Header';
+import {TarefasMap} from './components/tarefasMap';
+import {TarefasMapCalendar} from './components/tarefasMap';
 import AddTarefa from './components/addTarefa';
 
+let data = new Date();
+let dia = String(data.getDate()).padStart(2, '0');
+let mes = String(data.getMonth() + 1).padStart(2, '0');
+let ano = data.getFullYear();
+let dataAtual = dia + '/' + mes + '/' + ano;
 function App() {
   const [tarefas, addTarefas] = useState([
     {
       id:1,
-      tarefa:'Estudar React',
-      completa: false
+      title:'Estudar React',
+      completa: false,
+      date: '2020-09-09'
     },
     {
       id:2,
-      tarefa: 'Arrumar a casa',
-      completa: true
+      title: 'Arrumar a casa',
+      completa: true,
+      date: '2020-09-09'
     }
   ])
 
@@ -36,14 +49,38 @@ function App() {
     const tarefaSelecionada = tarefas.filter((tarefas)=> tarefas.id !== idTarefa)
     addTarefas(tarefaSelecionada)
 }
+
   return (
+    <Router>
       <div className="container">
-        <div className="row no-gutter">
-          <AddTarefa adicionarTarefa = {adicionarTarefa}/> 
-          <TarefasMap tarefasArray = {tarefas} mudarStatus = {mudarStatusTarefa} deletarTarefa={deletarTarefa}/>
+        <Header/>
+        <div className="row no-gutter mx-0">
+          <Route path="/tarefas" 
+                 exact 
+                 render = {()=>[
+                    <>
+                      <AddTarefa adicionarTarefa = {adicionarTarefa}/> 
+                      <TarefasMap tarefasArray = {tarefas} mudarStatus = {mudarStatusTarefa} deletarTarefa={deletarTarefa}/>
+                    </>
+          ]}>
+          </Route>
+          <Route path="/resumo" 
+                 exact 
+                 render = {()=>[
+                  <FullCalendar
+                  plugins={[ dayGridPlugin ]}
+                  initialView="dayGridMonth"
+                  weekends={false}
+                  events={[<TarefasMapCalendar tarefasArray = {tarefas}/>]}
+                />
+                      
+          ]} >
+          </Route>
         </div>
-      </div>
+      </div>  
+    </Router>
   );
+ 
 }
 
 export default App;

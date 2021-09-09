@@ -8,5 +8,9 @@ const TarefasMap = ({ tarefasArray, mudarStatus,deletarTarefa })=>{
         </>
     )
 }
+const TarefasMapCalendar = ({ tarefasArray })=>{
 
-export default TarefasMap;
+    return (tarefasArray.map((t)=>{return({title:t.title, date:t.date}) }))
+}
+export {TarefasMap} 
+export {TarefasMapCalendar};
